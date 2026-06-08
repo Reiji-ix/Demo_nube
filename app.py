@@ -1,13 +1,10 @@
-from fastapi import FastAPI
-import os
+from flask import Flask
 
-app = FastAPI()
+app = Flask(__name__)
 
-@app.get("/")
-def read_root():
-    node = os.environ.get("NODE_NAME", "Entorno Local")
-    return {
-        "sistema": "POS Cafetería Independiente",
-        "servidor": node,
-        "menu_clasicos": ["Espresso", "Flat White", "Latte con Caramelo Salado"]
-    }
+@app.route('/')
+def home():
+    return {"sistema": "POS Cafetería Independiente", "estado": "Activo y escalando"}
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
